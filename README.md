@@ -68,7 +68,8 @@ graph TD
     class GM ai;
 ```
 
-> 🖼️ *O arquivo visual detalhado do fluxograma (gerado via Miro/Draw.io) encontra-se mapeado na pasta do projeto.*
+> 🖼️ **Fluxograma Visual do Sistema:**
+> ![Fluxograma de Funcionamento](./assets/fluxograma.png)
 
 ---
 
@@ -87,6 +88,6 @@ Para garantir a qualidade das respostas na próxima sprint, foi desenvolvida uma
 ## 📅 Próximos Passos (Estrutura da Sprint)
 *   [x] Configuração da Infraestrutura Base e Ambiente (`.env.example` / `.gitignore` / `requirements.txt`)
 *   [x] Definição de Escopo, Personas e Justificativa Técnica (`README.md`)
-*   [ ] Inclusão do arquivo visual do Fluxograma de Funcionamento
+*   [x] Inclusão do arquivo visual do Fluxograma de Funcionamento
 *   [x] Vinculação do arquivo de System Prompt (`system_prompt.txt`)
 *   [x] Vinculação da Matriz com o Modelo de Testes (`modelo_teste.md`)
