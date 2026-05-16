@@ -43,11 +43,11 @@ O fluxo lógico do sistema consiste nas seguintes etapas:
 
 ```mermaid
 graph TD
-    %% Estilos de nós
-    classDef usuario fill:#E1BEE7,stroke:#4A148C,stroke-width:2px;
-    classDef front fill:#BBDEFB,stroke:#0D47A1,stroke-width:2px;
-    classDef back fill:#FFE0B2,stroke:#E65100,stroke-width:2px;
-    classDef ai fill:#C8E6C9,stroke:#1B5E20,stroke-width:2px;
+    %% Estilos de nós corrigidos com texto escuro para alto contraste
+    classDef usuario fill:#BA68C8,stroke:#4A148C,stroke-width:2px,color:#000000;
+    classDef front fill:#64B5F6,stroke:#0D47A1,stroke-width:2px,color:#000000;
+    classDef back fill:#FFB74D,stroke:#E65100,stroke-width:2px,color:#000000;
+    classDef ai fill:#81C784,stroke:#1B5E20,stroke-width:2px,color:#000000;
 
     %% Fluxo Principal
     U([Usuário: Morador ou Síndico]) -->|1. Envia pergunta em texto| ST[Interface: Streamlit]
@@ -88,5 +88,5 @@ Para garantir a qualidade das respostas na próxima sprint, foi desenvolvida uma
 *   [x] Configuração da Infraestrutura Base e Ambiente (`.env.example` / `.gitignore` / `requirements.txt`)
 *   [x] Definição de Escopo, Personas e Justificativa Técnica (`README.md`)
 *   [ ] Inclusão do arquivo visual do Fluxograma de Funcionamento
-*   [ ] Vinculação do arquivo de System Prompt (`system_prompt.txt`)
-*   [ ] Vinculação da Matriz com o Modelo de Testes (`modelo_teste.md`)
+*   [x] Vinculação do arquivo de System Prompt (`system_prompt.txt`)
+*   [x] Vinculação da Matriz com o Modelo de Testes (`modelo_teste.md`)
