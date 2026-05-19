@@ -1,6 +1,6 @@
 # GoodWe ChargeOps Assistant — EV Challenge 2026
 
-## 👥 Integrantes
+## Integrantes
 *   **Nickollas Korner** - RM: 569655
 *   **João Pedro Ferrari** - RM: 573037
 *   **Lucas Santana** - RM: 573197
@@ -9,7 +9,7 @@
 *   **Pierri Biason** - RM: 569718
 ---
 
-## 📌 1. O Problema Abordado
+## 1. O Problema Abordado
 Com a rápida expansão dos veículos elétricos (EVs), os condomínios residenciais enfrentam um severo gargalo logístico e infraestrutural. A ausência de mecanismos integrados para gerenciar o uso compartilhado de eletropostos gera três dores centrais:
 1.  **Disputa por Espaço e Tempo:** Moradores sobrecarregam os carregadores nos mesmos horários (geralmente ao retornar do trabalho), gerando conflitos de convivência.
 2.  **Injustiça Financeira:** Dificuldade do síndico em calcular e ratear o consumo exato de energia de cada veículo, resultando em cobranças genéricas e injustas na taxa condominial fixa.
@@ -17,7 +17,7 @@ Com a rápida expansão dos veículos elétricos (EVs), os condomínios residenc
 
 ---
 
-## 💡 2. Proposta do Chatbot (Escopo e Persona)
+## 2. Proposta do Chatbot (Escopo e Persona)
 O **GoodWe ChargeOps Assistant** é um chatbot com IA especializado no ecossistema condominial da GoodWe. Ele atua como um mediador inteligente operando em duas frentes de atendimento (Persona Dupla):
 
 *   **Para o Morador (Concierge de Recarga):** Permite realizar e consultar agendamentos de horários, checar a disponibilidade da vaga em tempo real, consultar o histórico de consumo pessoal em kWh e receber alertas sobre o fim do ciclo de recarga.
@@ -25,7 +25,7 @@ O **GoodWe ChargeOps Assistant** é um chatbot com IA especializado no ecossiste
 
 ---
 
-## 🛠️ 3. Arquitetura e Justificativa Técnica
+## 3. Arquitetura e Justificativa Técnica
 
 Para garantir a viabilidade comercial, robustez e agilidade no desenvolvimento, a solução foi desenhada utilizando a seguinte stack tecnológica:
 
@@ -38,7 +38,7 @@ Para garantir a viabilidade comercial, robustez e agilidade no desenvolvimento, 
 
 ---
 
-## 📊 4. Fluxograma de Funcionamento
+## 4. Fluxograma de Funcionamento
 O fluxo lógico do sistema consiste nas seguintes etapas:
 
 ```mermaid
@@ -68,24 +68,24 @@ graph TD
     class GM ai;
 ```
 
-> 🖼️ **Fluxograma Visual do Sistema:**
+> **Fluxograma Visual do Sistema:**
 > ![Fluxograma de Funcionamento](./assets/fluxograma.png)
 
 ---
 
-## 🤖 5. Contexto-Base (System Prompt)
+## 5. Contexto-Base (System Prompt)
 A IA é condicionada através de diretrizes estritas de comportamento operando sob regras de negócio específicas para o ecossistema `EV ChargeOps` (blocos de recarga de até 4 hours, modo de potência reduzida em horários de pico entre 18h e 21h, e travas de privacidade em conformidade com a LGPD).
-> 📄 *O documento de instrução completo pode ser consultado em:* `system_prompt.txt`
+> *O documento de instrução completo pode ser consultado em:* `system_prompt.txt`
 
 ---
 
-## 🧪 6. Matriz de Testes
+## 6. Matriz de Testes
 Para garantir a qualidade das respostas na próxima sprint, foi desenvolvida uma matriz de validação contendo cenários de teste reais para moradores, síndicos e situações de suporte técnico.
-> 📊 *A tabela com as 5 perguntas e respostas ideais esperadas está disponível em:* `modelo_teste.md`
+> *A tabela com as 5 perguntas e respostas ideais esperadas está disponível em:* `modelo_teste.md`
 
 ---
 
-## 📅 Próximos Passos (Estrutura da Sprint)
+## Próximos Passos (Estrutura da Sprint)
 *   [x] Configuração da Infraestrutura Base e Ambiente (`.env.example` / `.gitignore` / `requirements.txt`)
 *   [x] Definição de Escopo, Personas e Justificativa Técnica (`README.md`)
 *   [x] Inclusão do arquivo visual do Fluxograma de Funcionamento
