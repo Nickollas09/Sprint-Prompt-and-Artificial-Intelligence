@@ -1,11 +1,20 @@
+import os
 import streamlit as st
+from google import genai
 from bot_logic import configurar_chat_com_memoria
 
-st.set_page_config(page_title="GoodWe ChargeOps Assistant",layout="centered")
+st.set_page_config(page_title="GoodWe ChargeOps Assistant", layout="centered")
 
 st.title(" GoodWe ChargeOps Assistant")
 st.caption(" Solução inteligente para gestão de eletropostos condominiais — EV Challenge 2026")
 st.divider()
+
+if "genai_client" not in st.session_state:
+    api_key = os.getenv("GEMINI_API_KEY")
+    if not api_key:
+        st.error("ERRO CRÍTICO: A variável GEMINI_API_KEY não foi configurada no arquivo .env!")
+        st.stop()
+    st.session_state.genai_client = genai.Client(api_key=api_key)
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -22,11 +31,11 @@ if prompt := st.chat_input("Como posso ajudar com a recarga do seu VE hoje?"):
     st.session_state.messages.append({"role": "user", "content": prompt})
     
     try:
-        chat_sessao = configurar_chat_com_memoria(st.session_state.messages[:-1])
-
+        chat_sessao = configurar_chat_com_memoria(st.session_state.genai_client, st.session_state.messages[:-1])
+        
         resposta_ia = chat_sessao.send_message(prompt)
         texto_resposta = resposta_ia.text
-
+        
         with st.chat_message("assistant"):
             st.markdown(texto_resposta)
             
