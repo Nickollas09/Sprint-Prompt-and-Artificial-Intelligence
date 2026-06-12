@@ -3,7 +3,6 @@ from google import genai
 from google.genai import types
 from dotenv import load_dotenv
 
-# Carrega as variáveis de ambiente do arquivo .env
 load_dotenv()
 
 def carregar_system_prompt() -> str:
@@ -30,7 +29,6 @@ def configurar_chat_com_memoria(historico_streamlit):
     client = iniciar_cliente_gemini()
     prompt_sistema = carregar_system_prompt()
     
-    # Traduz o histórico visual do Streamlit para o formato da estrutura do Gemini
     historico_gemini = []
     for msg in historico_streamlit:
         role_gemini = "user" if msg["role"] == "user" else "model"
@@ -40,14 +38,12 @@ def configurar_chat_com_memoria(historico_streamlit):
                 parts=[types.Part.from_text(text=msg["content"])]
             )
         )
-    
-    # Configuração de comportamento do modelo inteligente
+
     config = types.GenerateContentConfig(
         system_instruction=prompt_sistema,
         temperature=0.7
     )
-    
-    # Cria o chat contínuo com o modelo recomendado de alta performance
+
     chat = client.chats.create(
         model="gemini-1.5-flash",
         history=historico_gemini,

@@ -1,4 +1,4 @@
-# 🧪 Modelo de Teste (Perguntas e Respostas Ideais)
+# Modelo de Teste (Perguntas e Respostas Ideais)
 
 A matriz abaixo serve como base de validação para a inteligência e aderência do chatbot ao cenário condominial (EV ChargeOps) da GoodWe.
 
