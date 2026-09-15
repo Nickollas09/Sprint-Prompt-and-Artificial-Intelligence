@@ -11,30 +11,36 @@
 
 ## 1. O Problema Abordado
 Com a rápida expansão dos veículos elétricos (EVs), os condomínios residenciais enfrentam um severo gargalo logístico e infraestrutural. A ausência de mecanismos integrados para gerenciar o uso compartilhado de eletropostos gera três dores centrais:
-1.  **Disputa por Espaço e Tempo:** Moradores sobrecarregam os carregadores nos mesmos horários (geralmente ao retornar do trabalho), gerando conflitos de convivência.
-2.  **Injustiça Financeira:** Dificuldade do síndico em calcular e ratear o consumo exato de energia de cada veículo, resultando em cobranças genéricas e injustas na taxa condominial fixa.
-3.  **Sobrecarga da Rede Elétrica:** Risco iminente de queda do disjuntor geral do condomínio caso múltiplos carregadores operem em potência máxima simultaneamente.
+1. **Disputa por Espaço e Tempo:** Moradores sobrecarregam os carregadores nos mesmos horários (geralmente ao retornar do trabalho), gerando conflitos de convivência.
+2. **Injustiça Financeira:** Dificuldade do síndico em calcular e ratear o consumo exato de energia de cada veículo, resultando em cobranças genéricas e injustas na taxa condominial fixa.
+3. **Sobrecarga da Rede Elétrica:** Risco iminente de queda do disjuntor geral do condomínio caso múltiplos carregadores operem em potência máxima simultaneamente.
 
 ---
 
-## 2. Proposta do Chatbot (Escopo e Persona)
-O **GoodWe ChargeOps Assistant** é um chatbot com IA especializado no ecossistema condominial da GoodWe. Ele atua como um mediador inteligente operando em duas frentes de atendimento (Persona Dupla):
+## 2. Proposta da Solução (Persona Dupla & Guardrails)
+O **GoodWe ChargeOps Agent** é um agente inteligente de conversação especializado no ecossistema condominial da GoodWe. Ele atua como um mediador operando em duas frentes de atendimento:
 
-*   **Para o Morador (Concierge de Recarga):** Permite realizar e consultar agendamentos de horários, checar a disponibilidade da vaga em tempo real, consultar o histórico de consumo pessoal em kWh e receber alertas sobre o fim do ciclo de recarga.
-*   **Para o Síndico (Painel Operacional):** Funciona como um assistente de gestão em linguagem natural, auxiliando no fechamento de relatórios de faturamento mensais, monitoramento dos ciclos de uso e aplicação de regras de agendamento do condomínio.
+* **Para o Morador (Concierge de Recarga):** Permite realizar e consultar agendamentos de horários, checar a disponibilidade da vaga em tempo real, consultar o histórico de consumo pessoal em kWh e receber alertas sobre o fim do ciclo de recarga.
+* **Para o Síndico (Painel Operacional):** Funciona como um assistente de gestão em linguagem natural, auxiliando no fechamento de relatórios de faturamento mensais, monitoramento dos ciclos de uso e aplicação de regras de agendamento do condomínio.
+
+### Guardrails & Segurança (Sprint 03)
+Na Sprint 03, foram incorporadas diretrizes severas de segurança diretamente no orquestrador:
+* **Resistência a Prompt Injection:** O agente recusa categoricamente ordens para ignorar suas instruções de sistema.
+* **Foco Estrito de Escopo:** Recusa responder perguntas não relacionadas a eletropostos GoodWe.
+* **Travas de Responsabilidade:** Não emite pareceres jurídicos, financeiros ou orientações de manipulação elétrica de alta tensão que ofereçam risco.
 
 ---
 
-## 3. Arquitetura e Justificativa Técnica
+## 3. Arquitetura Técnica & Evolução (Sprint 03)
 
-Para garantir a viabilidade comercial, robustez e agilidade no desenvolvimento, a solução foi desenhada utilizando a seguinte stack tecnológica:
+Nesta etapa, o sistema evoluiu de uma chamada manual de API para um **Agente Orquestrado via LangChain**, com gerenciamento declarativo de memória por sessão e seleção dinâmica de modelos:
 
 | Tecnologia | Função no Projeto | Justificativa Técnica |
 | :--- | :--- | :--- |
-| **Python** | Linguagem Principal | Linguagem base obrigatória devido à sua maturidade, versatilidade e vasta gama de bibliotecas voltadas para Inteligência Artificial. |
-| **Streamlit** | Interface do Usuário (Front-end) | Framework que transforma scripts Python em aplicações web interativas rapidamente, permitindo criar um chat limpo e intuitivo focado na experiência do usuário. |
-| **LangChain** | Orquestração e Memória | Essencial para gerenciar o contexto e o histórico das conversas, garantindo que o chatbot se lembre de mensagens anteriores durante o fluxo de agendamento. |
-| **Google Gemini API** | Modelo de Linguagem (LLM) | Uso do modelo `gemini-1.5-flash` devido ao seu tempo de resposta ultra-rápido, excelente compreensão de contexto (NLP) e custo por token extremamente baixo para produção. |
+| **Python 3.11+** | Linguagem Principal | Linguagem base obrigatória pela maturidade e amplo suporte a bibliotecas de Inteligência Artificial. |
+| **Streamlit** | Interface Interativa (Front-end) | Interface reativa em tempo real com suporte a controle de hiperparâmetros (Temperature/Top P) e gerenciamento visual de sessões. |
+| **LangChain Framework** | Orquestração do Agente | Responsável por unir o `ChatPromptTemplate`, o gerenciador de memória `InMemoryChatMessageHistory` e o executor `RunnableWithMessageHistory`. |
+| **Google Gemini API** | Motor LLM Multimodelo | Suporte dinâmico aos modelos `gemini-2.5-flash` e `gemini-2.5-pro`, unindo baixíssima latência, capacidade de raciocínio e conformidade com os Guardrails. |
 
 ---
 
@@ -73,21 +79,35 @@ graph TD
 
 ---
 
-## 5. Contexto-Base (System Prompt)
-A IA é condicionada através de diretrizes estritas de comportamento operando sob regras de negócio específicas para o ecossistema `EV ChargeOps` (blocos de recarga de até 4 hours, modo de potência reduzida em horários de pico entre 18h e 21h, e travas de privacidade em conformidade com a LGPD).
-> *O documento de instrução completo pode ser consultado em:* `system_prompt.txt`
+## 5. Experimentos e Comparação de Modelos (LLM)
+Para atender aos requisitos de avaliação de desempenho da Sprint 03, foram realizados testes comparativos entre os modelos atualizados da série 2.5 da Google com hiperparâmetros padronizados (temperature=0.7, top_p=0.95):
+
+Gemini 2.5 Flash: Modelo escolhido como padrão da aplicação. Apresentou latência média baixíssima (~0.8s), adesão perfeita aos Guardrails e excelente custo-benefício.
+
+Gemini 2.5 Pro: Apresentou respostas mais detalhadas em cenários complexos de infraestrutura, porém com latência um pouco maior (~1.2s).
+
+A documentação completa do benchmark pode ser consultada no arquivo: relatorio_modelos.md
 
 ---
 
-## 6. Matriz de Testes
-Para garantir a qualidade das respostas na próxima sprint, foi desenvolvida uma matriz de validação contendo cenários de teste reais para moradores, síndicos e situações de suporte técnico.
-> *A tabela com as 5 perguntas e respostas ideais esperadas está disponível em:* `modelo_teste.md`
+## 6. Documentações & Anexos do Projeto
+Instruções de Sistema e Guardrails: config/system_prompt.txt
+
+Matriz de Testes (Funcionais, Memória & Segurança): modelo_teste.md
+
+Relatório de Comparação de LLMs: relatorio_modelos.md
+
+Relatório Oficial de Evolução (PDF): Relatorio-Evolucao-Sprint-Prompt-and-Artificial-Inteligence.pdf
+
+Lista da Equipe: integrantes.txt
 
 ---
 
-## Próximos Passos (Estrutura da Sprint)
-*   [x] Configuração da Infraestrutura Base e Ambiente (`.env.example` / `.gitignore` / `requirements.txt`)
-*   [x] Definição de Escopo, Personas e Justificativa Técnica (`README.md`)
-*   [x] Inclusão do arquivo visual do Fluxograma de Funcionamento
-*   [x] Vinculação do arquivo de System Prompt (`system_prompt.txt`)
-*   [x] Vinculação da Matriz com o Modelo de Testes (`modelo_teste.md`)
+## 7. Como Executar o Projeto Localmente
+* Clone o repositório: **git clone https://github.com/Nickollas09/Sprint-Prompt-and-Artificial-Intelligence.git**
+
+* Instale as dependências atualizadas: **py -m pip install -r requirements.txt**
+
+* Configure a Chave de API: Crie um arquivo .env na raiz do projeto contendo a sua chave do Google AI Studio: **GEMINI_API_KEY=sua_chave_aqui**
+
+* Inicie a aplicação com o LangChain: **py -m streamlit run app.py**
