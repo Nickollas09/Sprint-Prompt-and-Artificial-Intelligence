@@ -98,6 +98,7 @@ Matriz de Testes (Funcionais, Memória & Segurança): modelo_teste.md
 Relatório de Comparação de LLMs: relatorio_modelos.md
 
 Relatório Oficial de Evolução (PDF): Relatorio-Evolucao-Sprint-Prompt-and-Artificial-Inteligence.pdf
+[![Acessar PDF](https://img.shields.io/badge/Visualizar_Relatório-PDF-red?style=for-the-badge&logo=adobeacrobatreader)](./assets/Relatorio-Evolucao-Sprint-Prompt-and-Artificial-Inteligence.pdf)
 
 Lista da Equipe: integrantes.txt
 
