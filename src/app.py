@@ -3,7 +3,7 @@ from bot_logic import criar_agente_goodwe, store
 
 st.set_page_config(page_title="GoodWe ChargeOps Agent", layout="wide")
 
-st.title(" GoodWe ChargeOps Agent (Sprint 3)")
+st.title(" GoodWe ChargeOps Agent — EV Challenge 2026")
 st.caption(" Agente Orquestrado com LangChain & Guardrails de Segurança — EV Challenge 2026")
 st.divider()
 

@@ -1,0 +1,11 @@
+{
+  "turma": "1CCA",
+  "integrantes": [
+    {"nome": "Nickollas Korner", "rm": "569655", "tarefa_sprint4": "Redação e revisão do relatório final"},
+    {"nome": "João Pedro Ferrari", "rm": "573037", "tarefa_sprint4": "Execução do pipeline e coleta das métricas"},
+    {"nome": "Lucas Santana", "rm": "573197", "tarefa_sprint4": "Casos de segurança e prompt injection do golden dataset"},
+    {"nome": "Lucca Bracco", "rm": "570175", "tarefa_sprint4": "Casos funcionais, de memória e de borda do golden dataset"},
+    {"nome": "Vitor Nascimento", "rm": "571873", "tarefa_sprint4": "Implementação do juiz LLM e das métricas"},
+    {"nome": "Pierri Biason", "rm": "569718", "tarefa_sprint4": "Comparação com a avaliação manual da Sprint 3"}
+  ]
+}

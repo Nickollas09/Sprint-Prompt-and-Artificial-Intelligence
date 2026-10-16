@@ -102,13 +102,40 @@ Relatório Oficial de Evolução (PDF): Relatorio-Evolucao-Sprint-Prompt-and-Art
 
 Lista da Equipe: integrantes.txt
 
+Relatório Final da Sprint 04 (PDF): assets/Relatorio-Final-Sprint4.pdf
+
 ---
 
-## 7. Como Executar o Projeto Localmente
+## 7. Sprint 04 — Avaliação Sistemática do Agente
+
+Na Sprint 04 a checagem manual da Sprint 3 foi substituída por um **pipeline de avaliação reprodutível** (pasta `avaliacao/`), que roda um golden dataset contra várias versões do agente e calcula métricas automaticamente.
+
+| Componente | Arquivo | O que faz |
+| :--- | :--- | :--- |
+| **Golden dataset** | `avaliacao/golden_dataset.json` | 30 casos (funcional, memória, segurança/injection, escopo, jurídico/financeiro/elétrico, alucinação, borda), cada um com gabarito, critérios de aceite e termos obrigatórios/proibidos. Reaproveita os casos das Sprints 1 e 3. |
+| **Versões avaliadas** | `avaliacao/agentes.py` | `sprint2_manual` (SDK google-genai direto, prompt da Sprint 2), `sprint3_flash` e `sprint3_pro` (LangChain da Sprint 3, `src/bot_logic.py` sem alterações). |
+| **LLM as a judge** | `avaliacao/juiz.py` | Modelo Gemini diferente dos avaliados, temperature 0, saída JSON com notas 0–5 de correção, escopo e fidelidade. |
+| **Métricas** | `avaliacao/metricas.py` | Notas do juiz + checagens sem LLM (termos obrigatórios, vazamento de system prompt) → taxa de recusa correta, resistência a injection, retenção de memória, latência, tokens e score final 0–100. |
+| **Avaliação manual** | `avaliacao/avaliacao_manual_sprint3.json` + `comparar_manual.py` | Conclusões da Sprint 3 verificadas contra as métricas (Concorda / Parcial / Diverge). |
+| **Relatório** | `avaliacao/gerar_relatorio.py` | Gera `relatorio_final.md` e `.pdf` com as tabelas a partir dos resultados. |
+
+**Como rodar a avaliação** (a partir da raiz do projeto, com o `.env` configurado):
+
+```bash
+py -m avaliacao.run_eval --simulado          # 1) teste rápido do pipeline, sem gastar API
+py -m avaliacao.run_eval --repeticoes 3      # 2) avaliação real das 3 versões
+py -m avaliacao.gerar_relatorio              # 3) gera o relatório da última execução
+```
+
+Os resultados ficam em `resultados/execucao_<data>/` (`respostas.jsonl` com cada resposta e nota, `metricas.json`, `comparacao_manual.json` e o relatório). Para avaliar só alguns casos: `--casos SEG-01 MEM-03`. Os modelos podem ser trocados no `.env` (ver `.env.example`).
+
+---
+
+## 8. Como Executar o Projeto Localmente
 * Clone o repositório: **git clone https://github.com/Nickollas09/Sprint-Prompt-and-Artificial-Intelligence.git**
 
 * Instale as dependências atualizadas: **py -m pip install -r requirements.txt**
 
 * Configure a Chave de API: Crie um arquivo .env na raiz do projeto contendo a sua chave do Google AI Studio: **GEMINI_API_KEY=sua_chave_aqui**
 
-* Inicie a aplicação com o LangChain: **py -m streamlit run app.py**
+* Inicie a aplicação com o LangChain: **py -m streamlit run src/app.py**
